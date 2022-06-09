@@ -1,7 +1,7 @@
 package fr.fms;
 
-import java.util.Optional;
-
+import java.util.List;
+import java.util.Scanner;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -14,12 +14,14 @@ import fr.fms.entities.Category;
 
 @SpringBootApplication
 public class SpringShopApplication implements CommandLineRunner {
-	
+
 	@Autowired
 	private CategoryRepository categoryRepository;
-	
+
 	@Autowired
 	private ArticleRepository articleRepository;
+
+	public Scanner scan = new Scanner(System.in);
 
 	public static void main(String[] args) {
 		SpringApplication.run(SpringShopApplication.class, args);
@@ -27,44 +29,55 @@ public class SpringShopApplication implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
+		mainMenu();
+	}
+
+	public void displayAllArticles() {
+		System.out.println("------------------------------------------------------");
+		for(Article article : articleRepository.findAll()) {
+			System.out.println(article);
+			System.out.println("------------------------------------------------------");
+		}
+	}
+	
+	public void displayAllArticlesByPage() {
+		Article[] listArticle = new Article[];
+		int index = 0;
 		
-//		Category smartphone = categoryRepository.save(new Category("Smartphone"));
-//		Category tablet = categoryRepository.save(new Category("Tablet"));
-//		Category pc = categoryRepository.save(new Category("PC"));
-		
-//		articleRepository.save(new Article("S10","Samsung",500,smartphone));
-//		articleRepository.save(new Article("S0","Samsung",350,smartphone));
-//		articleRepository.save(new Article("MI10","Xiaomi",100,smartphone));
-//		
-//		
-//		
-//		articleRepository.save(new Article("GalaxyTab","Samsung",450,tablet));
-//		articleRepository.save(new Article("IPad","Apple",350,tablet));
-//		articleRepository.save(new Article("R510","Asus",600,pc));
-		
-//		Category smartphone = categoryRepository.findByName("Smartphone");
-//		Category tablet = categoryRepository.findByName("Tablet");
-//		Category pc = categoryRepository.findByName("PC");
-//		
-//		for(Article article : articleRepository.findByBrandAndDescription("Samsung", "S10")) {
-//		System.out.println(article);
-//	}
-//		
-//		
-//		for(Article article : articleRepository.findByBrand("Samsung")) {
-//		System.out.println(article);
-//	}
-//		
-//		articleRepository.deleteById((long) 1);
-//		articleRepository.save(new Article( (long) 7, "S10","Samsung",500,smartphone));
-//		articleRepository.save(new Article( (long) 2, "S0","Samsung", 300, smartphone));
-		
-		for(Category category : categoryRepository.findAllByOrderByNameAsc()) {
-			System.out.println(category);
+		for(Article article : articleRepository.findAll()) {
+			listArticle[index] = article;
+			index ++;
 		}
 		
-		
-	
 	}
+
+	public void mainMenu() {
+
+		System.out.println("Bienvenue dans SpringShop, que voulez vous faire?");
+		System.out.println("1 : Afficher la liste des articles");
+		System.out.println("2 : Afficher les articles par page");
+
+
+		int choice;
+
+		while(!scan.hasNextInt()) scan.next();
+
+		choice = scan.nextInt();
+
+		switch (choice) {
+		case 1:
+			displayAllArticles();
+			break;
+		
+		case 2:
+			displayAllArticlesByPage();
+			break;
+		}
+
+	}
+
+
+
+
 
 }
