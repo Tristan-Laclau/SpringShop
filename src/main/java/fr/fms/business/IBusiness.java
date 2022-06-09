@@ -6,8 +6,5 @@ import fr.fms.entities.Article;
 
 public interface IBusiness {
 
-	/**
-	 * Returns all articles
-	 */
 	public List<Article> getAllArticles();
 }
