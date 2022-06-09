@@ -1,25 +1,20 @@
 package fr.fms;
 
-import java.util.List;
+import java.util.ArrayList;
 import java.util.Scanner;
-import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-import fr.fms.dao.ArticleRepository;
-import fr.fms.dao.CategoryRepository;
+import fr.fms.business.IBusinessImpl;
 import fr.fms.entities.Article;
 import fr.fms.entities.Category;
 
 @SpringBootApplication
 public class SpringShopApplication implements CommandLineRunner {
 
-	@Autowired
-	private CategoryRepository categoryRepository;
-
-	@Autowired
-	private ArticleRepository articleRepository;
+	private static IBusinessImpl job = new IBusinessImpl();
 
 	public Scanner scan = new Scanner(System.in);
 
@@ -34,21 +29,33 @@ public class SpringShopApplication implements CommandLineRunner {
 
 	public void displayAllArticles() {
 		System.out.println("------------------------------------------------------");
-		for(Article article : articleRepository.findAll()) {
+		for(Article article : job.getAllArticles()) {
 			System.out.println(article);
 			System.out.println("------------------------------------------------------");
 		}
 	}
-	
+
 	public void displayAllArticlesByPage() {
-		Article[] listArticle = new Article[];
+		ArrayList<Article> listArticle = new ArrayList<Article>();
 		int index = 0;
-		
-		for(Article article : articleRepository.findAll()) {
-			listArticle[index] = article;
+		int input = -1;
+
+		for(Article article : job.getAllArticles()) {
+			listArticle.set(index, article);
 			index ++;
 		}
-		
+
+		while(!scan.hasNextInt()) scan.next();
+		input = scan.nextInt();
+
+		while (input != 3) {
+
+
+			for (int i = 0; i < 5 ; i ++) {
+				System.out.println(listArticle.get(i));
+			}
+		}
+
 	}
 
 	public void mainMenu() {
@@ -68,7 +75,7 @@ public class SpringShopApplication implements CommandLineRunner {
 		case 1:
 			displayAllArticles();
 			break;
-		
+
 		case 2:
 			displayAllArticlesByPage();
 			break;
