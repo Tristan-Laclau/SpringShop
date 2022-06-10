@@ -234,6 +234,7 @@ public class SpringShopApplication implements CommandLineRunner {
 	public void displayArticlesByCategory() {
 		
 		System.out.println("Entrez l'ID de la catégorie que vous souhaitez consulter");
+		displayAllCategories();
 		int idCategory = scan.nextInt();
 
 		for (Article article : job.getAllArticles()) {
