@@ -78,7 +78,7 @@ public class Article implements Serializable{
 
 	@Override
 	public String toString() {
-		return brand + " " + description + ", price = " + price + " € ";
+		return id + " : " + brand + " " + description + ", price = " + price + " € ";
 	}
 	
 	
