@@ -75,6 +75,10 @@ public class Article implements Serializable{
 	public void setPrice(double price) {
 		this.price = price;
 	}
+	
+	public Category getCategory(){
+		return this.category;
+	}
 
 	@Override
 	public String toString() {

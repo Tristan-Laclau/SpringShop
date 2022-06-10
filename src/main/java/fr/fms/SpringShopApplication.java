@@ -232,7 +232,13 @@ public class SpringShopApplication implements CommandLineRunner {
 	}
 
 	public void displayArticlesByCategory() {
+		
+		System.out.println("Entrez l'ID de la catégorie que vous souhaitez consulter");
+		int idCategory = scan.nextInt();
 
+		for (Article article : job.getAllArticles()) {
+			if(article.getCategory().getId() == Long.valueOf(idCategory)) System.out.println(article);
+		}
 	}
 
 	public void mainMenu() {
@@ -246,10 +252,11 @@ public class SpringShopApplication implements CommandLineRunner {
 			System.out.println("Que voulez-vous faire?");
 			System.out.println("1 : Afficher la liste des articles");
 			System.out.println("2 : Afficher les articles par page");
-			System.out.println("3 : Accéder au menu des articles");
-			System.out.println("4 : Accéder au menu des catégories");
-			System.out.println("5 : Rechercher un article par catégorie");
-			System.out.println("6 : Quitter l'application");
+			System.out.println("3 : Afficher la liste des catégories");
+			System.out.println("4 : Accéder au menu des articles");
+			System.out.println("5 : Accéder au menu des catégories");
+			System.out.println("6 : Rechercher un article par catégorie");
+			System.out.println("7 : Quitter l'application");
 
 
 			int choice;
@@ -266,12 +273,15 @@ public class SpringShopApplication implements CommandLineRunner {
 				displayAllArticlesByPage();
 				break;
 			case 3:
-				articleMenu();
+				displayAllCategories();
 				break;
 			case 4:
-				categoryMenu();
+				articleMenu();
 				break;
 			case 5:
+				categoryMenu();
+				break;
+			case 6:
 				displayArticlesByCategory();
 				break;
 			default:
@@ -279,6 +289,7 @@ public class SpringShopApplication implements CommandLineRunner {
 				break;
 			}
 		}
+		System.out.println("Ciao!");
 	}
 
 
